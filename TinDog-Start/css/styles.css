@@ -46,7 +46,17 @@ body {
 .tile-img {
   width: 60%;
   transform: rotate(25deg);
-  position: absolute;
+}
+@media (max-width: 1028px) {
+
+  #title {
+    text-align: center;
+  }
+
+  .title-image {
+    position: static;
+    transform: rotate(0);
+  }
 }
 
 
@@ -54,10 +64,16 @@ body {
 #features {
   font-family: 'Montserrat', sans-serif;
   padding: 7% 15%;
-  z-index: 1;
+  background-color: #fff;
   position: absolute;
+  top: 80%;
 }
-
+@media (max-width: 1028px) {
+  section#features{
+  position: static;
+  top: 0;
+}
+}
 #features i {
   padding: 3%;
 }
@@ -155,4 +171,31 @@ body {
 .price-text {
   text-align: center;
   padding: 3% 2%;
+}
+/*cta section*/
+#cta{
+background-color: #ff4c68;
+text-align: center;
+}
+
+#cta h3{
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+  font-weight: 900;
+  font-size: 3rem;
+  line-height: 1.5;
+  width: 60%;
+  margin: auto;
+  padding-top: 5%;
+}
+/*footer section*/
+#footer{
+  margin: 10% auto;
+  text-align: center;
+}
+#footer p{
+  color: #8f8f8f;
+}
+#footer .ico{
+  margin: 1% 1% 1% 1%;
 }
