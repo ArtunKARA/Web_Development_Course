@@ -219,7 +219,7 @@ getTodos('todos/luigis.json').then(data => {
 });
 */
 
-//The Fetch API
+/*//The Fetch API
 
 fetch("todos/luigi.json").then((response) =>{
     console.log('resolved', response);
@@ -230,3 +230,36 @@ fetch("todos/luigi.json").then((response) =>{
 }).catch((err) => {
     console.log('reject', err);
 });
+*/
+
+/*//Async & Await
+const getTodos = async () => {
+
+   const response = await fetch('todos/luigi.json');
+   const data = await response.json();
+   return data; 
+};
+getTodos().then(data => {
+    console.log(data);
+});*/
+
+/*//Throwing Errors
+
+const getTodos = async () => {
+    const response = await fetch('todos/luigi.json');
+
+    if(response.status === 200){
+        const data = await response.json();
+
+        return data;
+    }
+    else{
+        throw new Error('cannot fetch the data');
+    }
+    
+}
+
+getTodos()
+    .then(data => console.log('resolve',data))
+    .catch(err => console.log('reject',err));
+*/
