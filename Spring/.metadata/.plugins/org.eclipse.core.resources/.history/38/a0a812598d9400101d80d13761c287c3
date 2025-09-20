@@ -1,0 +1,14 @@
+package com.ferkan.jwt;
+
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
+
+import io.jsonwebtoken.Jwts;
+
+@Component
+public class JwtService {
+
+	public String generateToken(UserDetails userDetails) {
+		Jwts
+	}
+}

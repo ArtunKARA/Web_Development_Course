@@ -1,0 +1,23 @@
+package com.ferkan.handler;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import com.ferkan.exception.BaseException;
+
+@ControllerAdvice
+public class GlobalExceptionHandler {
+
+	@ExceptionHandler(value = {BaseException.class})
+	public ResponseEntity<String> handleBaseException(BaseException exception) {
+		return ResponseEntity.badRequest().body(exception.getMessage());
+	}
+	
+	public <E> ApiError<E> createApiError(){
+		
+		ApiError<E> apiError = new ApiError<>();
+		apiError.setStatus(HttpStatus.BAD_REQUEST.value());
+	}
+}

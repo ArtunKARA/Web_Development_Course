@@ -1,0 +1,7 @@
+package com.ferkan.service.impl;
+
+import com.ferkan.service.IAuthService;
+
+public class AuthServiceImpl implements IAuthService {
+
+}

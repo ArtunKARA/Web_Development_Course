@@ -1,0 +1,17 @@
+package com.ferkan.service.impl;
+
+import org.springframework.stereotype.Service;
+
+import com.ferkan.model.Employee;
+import com.ferkan.service.IEmployeeService;
+
+@Service
+public class EmployeeServiceImpl implements IEmployeeService {
+
+	@Override
+	public Employee findEmployeeById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

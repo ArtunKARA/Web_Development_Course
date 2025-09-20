@@ -1,0 +1,9 @@
+package com.ferkan.service;
+
+import com.ferkan.dto.DtoEmployee;
+
+public interface IEmployeeService {
+
+	DtoEmployee findEmployeeById(Long id);
+	
+}

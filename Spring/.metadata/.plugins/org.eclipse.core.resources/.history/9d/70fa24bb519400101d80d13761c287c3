@@ -1,0 +1,49 @@
+package com.ferkan.handler;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.net.http.WebSocket;
+import java.util.Date;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
+
+import com.ferkan.exception.BaseException;
+
+@ControllerAdvice
+public class GlobalExceptionHandler {
+
+	@ExceptionHandler(value = {BaseException.class})
+	public ResponseEntity<String> handleBaseException(BaseException exception, WebSocket request) {
+		return ResponseEntity.badRequest().body(exception.getMessage());
+	}
+	
+	private String getHostName() {
+		try {
+			return InetAddress.getLocalHost().getHostName();
+		} catch (UnknownHostException e) {
+			System.out.print("hata:"+e.getMessage());
+				
+		}
+		return null;
+	}
+	
+	public <E> ApiError<E> createApiError(E message, WebRequest request){
+		
+		ApiError<E> apiError = new ApiError<>();
+		apiError.setStatus(HttpStatus.BAD_REQUEST.value());
+		
+		Exception<E> exception = new Exception<>(); 
+		exception.setCreateDate(new Date());
+		exception.setHostName(getHostName());
+		exception.setPath(request.getDescription(false));
+		exception.setMessage(message);
+		
+		apiError.setException(exception);
+		
+		return apiError;
+	}
+}

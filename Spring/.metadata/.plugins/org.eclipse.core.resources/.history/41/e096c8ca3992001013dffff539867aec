@@ -1,0 +1,99 @@
+package com.ferkan.services.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ferkan.dto.DtoCourse;
+import com.ferkan.dto.DtoStudent;
+import com.ferkan.dto.DtoStudentIU;
+import com.ferkan.entites.Course;
+import com.ferkan.entites.Student;
+import com.ferkan.repostory.IStudentRepostory;
+import com.ferkan.services.IStudentService;
+
+@Service
+public class StudentServicesImpl implements IStudentService {
+
+	@Autowired
+	private IStudentRepostory studentRepostory;
+
+	@Override
+	public DtoStudent saveStudent(DtoStudentIU studentIU) {
+		DtoStudent responseDtoStudent = new DtoStudent();
+		Student student = new Student();
+
+		BeanUtils.copyProperties(studentIU, student);
+		BeanUtils.copyProperties(studentRepostory.save(student), responseDtoStudent);
+
+		return responseDtoStudent;
+	}
+
+	@Override
+	public List<DtoStudent> getAllStudents() {
+		List<DtoStudent> dtoStudents = new ArrayList<>();
+
+		for (Student student : studentRepostory.findAll()) {
+			DtoStudent dtoStudent = new DtoStudent();
+			BeanUtils.copyProperties(student, dtoStudent);
+			dtoStudents.add(dtoStudent);
+		}
+		return dtoStudents;
+	}
+
+	@Override
+	public DtoStudent getStudentById(Integer id) {
+		Optional<Student> optional = studentRepostory.findById(id);
+		if (optional.isPresent()) {
+			DtoStudent dtoStudent = new DtoStudent();
+			DtoCourse dtoCourse = new DtoCourse();
+			
+			BeanUtils.copyProperties(optional.get(), dtoStudent);
+			
+			if (optional.get().getCourses() != null) {
+				
+			}
+			for (Course course : optional.get().getCourses()) {
+				BeanUtils.copyProperties(course, dtoCourse);
+				dtoStudent.getDtoCourses().add(dtoCourse);
+			}
+			
+			return dtoStudent;
+		}
+		return null;
+	}
+
+	@Override
+	public Boolean deleteStudentById(Integer id) {
+		Optional<Student> optional = studentRepostory.findById(id);
+		if (optional.isPresent()) {
+			studentRepostory.delete(optional.get());
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public DtoStudent updateStudent(Integer id, DtoStudentIU updatedStudent) {
+		Optional<Student> optional = studentRepostory.findById(id);
+		DtoStudent dtoStudent = new DtoStudent();
+		if (!optional.isPresent()) {
+			return null;
+		} else {
+			Student foundStudent = optional.get();
+			foundStudent.setFirstName(updatedStudent.getFirstName());
+			foundStudent.setLastName(updatedStudent.getLastName());
+			foundStudent.setBirthOfDate(updatedStudent.getBirthOfDate());
+			
+			BeanUtils.copyProperties(studentRepostory.save(foundStudent), dtoStudent);
+			return dtoStudent ;
+		}
+	}
+	
+
+}

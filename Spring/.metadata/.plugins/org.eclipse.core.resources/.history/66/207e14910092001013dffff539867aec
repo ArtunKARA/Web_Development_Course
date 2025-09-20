@@ -1,0 +1,60 @@
+package com.ferkan.exception;
+
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import com.ferkan.starter.SpringDataJpaApplication;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+@ControllerAdvice	
+public class GlobalExceptionHandler {
+
+	
+	// Spring validation hatalarını yönetmek
+	@ExceptionHandler(value = MethodArgumentNotValidException.class)
+	public ResponseEntity<ApiError> handleMethodArgumentNotValidException (MethodArgumentNotValidException ex) {
+		
+		Map<String, List<String>> errosMap = new HashMap<>();
+		List<String> errList = new ArrayList<>();
+		
+		for (ObjectError objectError : ex.getBindingResult().getAllErrors()) {
+			
+			String fieldName =((FieldError)objectError).getField();
+			
+			if (errosMap.containsKey(fieldName)) {
+				
+				errList.add(objectError.getDefaultMessage());
+				errosMap.put(fieldName, errList);
+			
+			}else {
+				
+				errList.clear();
+				errList.add(objectError.getDefaultMessage());
+				errosMap.put(fieldName, errList);
+			
+			}
+		}
+		
+		return ResponseEntity.badRequest().body(creatApiError(errosMap));
+	}
+	
+	private <T> ApiError<T> creatApiError(T errors) {
+		ApiError<T> newApiError = new ApiError<T>();
+		newApiError.setId(UUID.randomUUID().toString());
+		newApiError.setErrorDate(new Date());
+		newApiError.setErrors(errors);
+		
+		return newApiError;
+	}
+}

@@ -1,0 +1,22 @@
+package com.ferkan.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ferkan.model.Employee;
+import com.ferkan.repository.EmployeeRepostory;
+import com.ferkan.service.IEmployeeService;
+
+@Service
+public class EmployeeServiceImpl implements IEmployeeService {
+
+	@Autowired
+	private EmployeeRepostory employeeRepostory;
+	
+	@Override
+	public Employee findEmployeeById(Long id) {
+		
+		return null;
+	}
+
+}

@@ -1,0 +1,12 @@
+package com.ferkan.controller.impl;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ferkan.controller.IAddressControler;
+
+@RestController
+@RequestMapping(path = "/rest/api/address")
+public class AddressControlerImpl implements IAddressControler {
+
+}

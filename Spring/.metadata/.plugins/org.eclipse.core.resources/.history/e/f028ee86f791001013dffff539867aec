@@ -1,0 +1,10 @@
+package com.ferkan.entites;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "room")
+public class Room {
+
+}

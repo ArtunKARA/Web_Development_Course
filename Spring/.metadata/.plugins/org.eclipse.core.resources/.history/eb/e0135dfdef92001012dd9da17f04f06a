@@ -1,0 +1,46 @@
+package com.ferkan.service.impl;
+
+import java.util.Optional;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ferkan.dto.DtoDepartment;
+import com.ferkan.dto.DtoEmployee;
+import com.ferkan.exception.BaseException;
+import com.ferkan.exception.ErrorMessage;
+import com.ferkan.exception.MessageType;
+import com.ferkan.model.Department;
+import com.ferkan.model.Employee;
+import com.ferkan.repository.EmployeeRepostory;
+import com.ferkan.service.IEmployeeService;
+
+@Service
+public class EmployeeServiceImpl implements IEmployeeService {
+
+	@Autowired
+	private EmployeeRepostory employeeRepostory;
+	
+	@Override
+	public DtoEmployee findEmployeeById(Long id) {
+		Optional<Employee> optional = employeeRepostory.findById(id);
+		DtoEmployee dtoEmployee = new DtoEmployee();
+		DtoDepartment dtoDepartment = new DtoDepartment();	
+		
+		if(optional.isEmpty()) {
+			throw new BaseException(new ErrorMessage(MessageType.NO_RECORD_EXIST, null))
+		}
+		
+		Employee employee = optional.get();
+		Department department = optional.get().getDepartment();
+		
+		BeanUtils.copyProperties(employee, dtoEmployee);
+		BeanUtils.copyProperties(department, dtoDepartment);
+		
+		dtoEmployee.setDepartment(dtoDepartment);
+		
+		return dtoEmployee;
+	}
+
+}

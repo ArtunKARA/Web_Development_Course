@@ -1,0 +1,18 @@
+package com.ferkan.controller.impl;
+
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ferkan.controller.IRestAuthController;
+import com.ferkan.dto.DtoUser;
+import com.ferkan.jwt.AuthRequest;
+
+import jakarta.validation.Valid;
+
+@RestController
+public class RestAuthControllerImpl implements IRestAuthController {
+
+	public DtoUser register(@Valid @RequestBody AuthRequest request) {
+		return null;
+	}
+}

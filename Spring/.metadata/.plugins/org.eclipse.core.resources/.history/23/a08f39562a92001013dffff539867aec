@@ -1,0 +1,8 @@
+package com.ferkan.services.impl;
+
+import com.ferkan.repostory.EmployeeRepostory;
+import com.ferkan.services.IEmployeeService;
+
+public class EmployeServiceImpl implements IEmployeeService {
+
+}

@@ -1,0 +1,7 @@
+package com.ferkan.services.impl;
+
+import com.ferkan.services.IHomeService;
+
+public class HomeServiceImpl implements IHomeService {
+
+}

@@ -1,0 +1,26 @@
+spring.application.name=spring-data-jpa
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
+spring.jpa.properties.hibernate.default_schema=student
+spring.datasource.username=postgres
+spring.datasource.password=72749459
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+
+app.serves[0].ip = 192.168.2.3
+app.serves[0].location = Almanya
+
+app.serves[1].ip = 192.168.2.4
+app.serves[1].location = Turkiye
+
+app.serves[2].ip = 192.168.2.5
+app.serves[2].location = ABD
+
+# @PropertSource -  @Value
+
+# @ConfugrationProperties
+

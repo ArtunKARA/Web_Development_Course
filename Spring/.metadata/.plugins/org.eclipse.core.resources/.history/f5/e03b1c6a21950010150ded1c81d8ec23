@@ -1,0 +1,56 @@
+package com.ferkan.config;
+
+import java.util.Optional;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.ferkan.model.User;
+import com.ferkan.repository.UserRepostory; 
+
+@Configuration
+public class AppConfig {
+
+    private final UserRepostory userRepostory;
+
+    public AppConfig(UserRepostory userRepostory) {
+        this.userRepostory = userRepostory;
+    }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        // User entity'niz UserDetails implements ediyorsa bu doğrudan dönebilir.
+        return (String username) -> {
+            Optional<User> optional = userRepostory.findByUsername(username);
+            return optional.orElseThrow(
+                () -> new UsernameNotFoundException("Kullanıcı bulunamadı: " + username)
+            );
+        };
+    }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService());
+        provider.setPasswordEncoder(passwordEncoder());
+        return provider; // <<< ÖNEMLİ
+    }
+
+    // Gerekli olduğunda AuthenticationManager enjekte etmek için:
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
+    }
+}

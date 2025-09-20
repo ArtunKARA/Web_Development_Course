@@ -1,0 +1,20 @@
+package com.ferkan.controller.impl;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ferkan.controller.IHomeController;
+import com.ferkan.dto.DtoHome;
+
+
+@RestController
+@RequestMapping("/rest/api/home")
+public class HomeControllerImpl implements IHomeController {
+
+	@Override
+	public DtoHome findHomeById(Long id) {
+
+		return null;
+	}
+
+}

@@ -1,0 +1,5 @@
+package com.ferkan.repostory;
+
+public interface AddressRepostory {
+
+}

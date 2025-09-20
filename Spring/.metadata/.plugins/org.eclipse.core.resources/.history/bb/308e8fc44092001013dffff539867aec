@@ -1,0 +1,26 @@
+package com.ferkan.controller.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ferkan.configuration.DataSource;
+import com.ferkan.configuration.GlobalProperties;
+
+@RestController
+@RequestMapping("rest/api/property")
+public class PropertySourceControll {
+	
+	@Autowired
+	private GlobalProperties globalProperties;
+	
+	@GetMapping(path = "/datasorusce")
+	public DataSource getDataSource() {
+		DataSource dataSource = new DataSource();
+		dataSource.setUrl(globalProperties.getUrl());
+		dataSource.setPassworld(globalProperties.getPassword());
+		dataSource.setUserName(globalProperties.getUsername());
+		return dataSource;
+	}
+}

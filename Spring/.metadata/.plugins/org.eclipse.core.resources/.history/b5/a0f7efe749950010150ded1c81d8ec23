@@ -1,0 +1,10 @@
+package com.ferkan.controller.impl;
+
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ferkan.controller.IRestAuthController;
+
+@RestController
+public class RestAuthControllerImpl implements IRestAuthController {
+
+}

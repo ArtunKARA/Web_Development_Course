@@ -1,0 +1,28 @@
+package com.ferkan.jwt;
+
+import java.security.Key;
+import java.util.Date;
+
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
+
+@Component
+public class JwtService {
+
+	public static final String SECRET_KEY = "8e1c81f36715d37b27e40e1fb8ac43d8b2696f8006b665eca969b216fe7980aa\r\n";
+	
+	public String generateToken(UserDetails userDetails) {
+		Jwts.builder()
+		.setSubject(userDetails.getUsername())
+		.setIssuedAt(new Date())
+		.setExpiration(new Date(System.currentTimeMillis() + 1000*60*60*2))
+		.signWith(null)
+	}
+	
+	public Key getKey() {
+		Decoders.BASE64
+	}
+}

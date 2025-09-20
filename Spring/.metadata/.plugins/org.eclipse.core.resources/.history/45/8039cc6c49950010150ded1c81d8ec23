@@ -1,0 +1,5 @@
+package com.ferkan.jwt;
+
+public class AuthResponse {
+
+}

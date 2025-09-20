@@ -1,0 +1,46 @@
+package com.ferkan.jwt;
+
+import java.io.IOException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@Component
+public class JwtAuthhenticationFilter extends OncePerRequestFilter {
+
+	@Autowired
+	private JwtService jwtService;
+	
+	@Override
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+			throws ServletException, IOException {
+		
+		String header;
+		String token;
+		String username;
+		
+		// Bearer ........
+		header = request.getHeader("Authorization");
+		
+		if (header == null) {
+			filterChain.doFilter(request, response);
+			return;
+		}
+		
+		token = header.substring(7);
+		
+		try {
+			jwtService.getUsernameByToken(token);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+
+}

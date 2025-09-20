@@ -1,0 +1,5 @@
+package com.ferkan.dto;
+
+public class DtoUser {
+
+}

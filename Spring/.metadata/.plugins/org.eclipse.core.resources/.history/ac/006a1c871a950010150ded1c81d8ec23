@@ -1,0 +1,48 @@
+package com.ferkan.config;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.ferkan.repository.UserRepostory;
+
+@Configuration
+public class AppConfig {
+
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+	
+	@Autowired
+	private UserRepostory userRepostory;
+	
+	@Bean
+	public UserDetailsService userDetailsService() {
+		return new UserDetailsService() {
+			
+			@Override
+			public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		};
+	}
+	
+	@Bean
+	public AuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+		authenticationProvider.setUserDetailsService(null);
+		authenticationProvider.setPasswordEncoder(passwordEncoder());
+		
+		return null;
+	}
+	
+
+}

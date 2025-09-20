@@ -1,0 +1,25 @@
+package com.ferkan.controller.impl;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ferkan.controller.IAddressControler;
+import com.ferkan.dto.DtoAddress;
+import com.ferkan.services.IAddressService;
+
+@RestController
+@RequestMapping(path = "/rest/api/address")
+public class AddressControlerImpl implements IAddressControler {
+
+	private IAddressService addressService;
+	
+	@GetMapping(path = "/list/{id}")
+	@Override
+	public DtoAddress findAddresById(@PathVariable(name = "id", required = true) Long id) {
+		
+		return null;
+	}
+
+}

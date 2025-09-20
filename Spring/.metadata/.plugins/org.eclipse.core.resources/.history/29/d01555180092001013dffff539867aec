@@ -1,0 +1,15 @@
+package com.ferkan.services.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ferkan.repostory.HomeRepostory;
+import com.ferkan.services.IHomeService;
+
+@Service
+public class HomeServiceImpl implements IHomeService {
+
+	@Autowired
+	private HomeRepostory homeRepostory;
+	
+}

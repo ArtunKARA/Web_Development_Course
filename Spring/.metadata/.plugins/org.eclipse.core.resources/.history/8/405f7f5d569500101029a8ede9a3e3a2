@@ -1,0 +1,26 @@
+package com.ferkan.service.impl;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.ferkan.dto.DtoEmployee;
+import com.ferkan.model.Employee;
+import com.ferkan.repository.EmployeeRepository;
+import com.ferkan.service.IEmployeeService;
+
+public class EmployeeServiceImpl implements IEmployeeService {
+
+	
+	@Autowired
+	private EmployeeRepository employeeRepository;
+	
+	
+	@Override
+	public DtoEmployee findEmployeeById(Long id) {
+		Optional<Employee> optional = employeeRepository.findById(id);
+		return null;
+	}
+
+
+}

@@ -1,0 +1,52 @@
+package com.ferkan.config;
+
+import java.util.Optional;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.ferkan.model.User;
+import com.ferkan.repository.UserRepostory;
+
+@Configuration
+public class AppConfig {
+
+    // Eski isim korunuyor
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    // Eski tarz (anonim sınıf) korunur ama sadeleştirildi
+    @Bean
+    public UserDetailsService userDetailsService(UserRepostory userRepostory) {
+        return new UserDetailsService() {
+            @Override
+            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+                Optional<User> optional = userRepostory.findByUsername(username);
+                return optional.orElseThrow(() ->
+                        new UsernameNotFoundException("Kullanıcı bulunamadı: " + username));
+            }
+        };
+    }
+
+    // GÖRSELDEKİ GİBİ: AuthenticationManager'ı HttpSecurity üzerinden kuruyoruz
+    @Bean
+    public AuthenticationManager authenticationManager(HttpSecurity http,
+                                                       UserDetailsService userDetailsService,
+                                                       BCryptPasswordEncoder passwordEncoder) throws Exception {
+        AuthenticationManagerBuilder authBuilder =
+                http.getSharedObject(AuthenticationManagerBuilder.class);
+        authBuilder
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder);
+        return authBuilder.build();
+    }
+}

@@ -1,0 +1,50 @@
+package com.ferkan.services.impl;
+
+import java.lang.StackWalker.Option;
+import java.util.Optional;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ferkan.dto.DtoAddress;
+import com.ferkan.dto.DtoCustomer;
+import com.ferkan.entites.Address;
+import com.ferkan.entites.Customer;
+import com.ferkan.repostory.AddressRepostory;
+import com.ferkan.services.IAddressService;
+
+@Service
+public class AddressServiceImpl implements IAddressService {
+
+	@Autowired
+	private AddressRepostory addressRepostory;
+	
+	@Override
+	public DtoAddress findAddresById(Long id) {
+		
+		Optional<Address> optional = addressRepostory.findById(id);
+		DtoAddress dtoAddress = new DtoAddress();
+		DtoCustomer dtoCustomer = new DtoCustomer();
+		
+		if (optional.isEmpty()) {
+			return null;
+		}
+		
+		Address address = optional.get();
+		Customer customer = optional.get().getCustomer();
+		
+		BeanUtils.copyProperties(address, dtoAddress);
+		
+		dtoCustomer.setId(customer.getId());
+		dtoCustomer.setName(customer.getName());
+		dtoCustomer.setAddress(dtoAddress);
+		
+		dtoAddress.setDtoCustomer(dtoCustomer);
+		
+		return dtoAddress;
+	}
+	
+
+
+}

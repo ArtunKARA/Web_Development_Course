@@ -1,0 +1,9 @@
+package com.ferkan.repostory;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.ferkan.entites.Home;
+
+public interface HomeRepostory extends JpaRepository<Home, Long> {
+
+}

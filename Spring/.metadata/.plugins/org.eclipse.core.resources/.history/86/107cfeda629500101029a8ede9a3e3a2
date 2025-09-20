@@ -1,0 +1,60 @@
+package com.ferkan.service.impl;
+
+import java.util.Optional;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.ferkan.dto.DtoDepartment;
+import com.ferkan.dto.DtoEmployee;
+import com.ferkan.jwt.AuthRequest;
+import com.ferkan.jwt.AuthResponse;
+import com.ferkan.model.Department;
+import com.ferkan.model.Employee;
+import com.ferkan.repository.EmployeeRepository;
+import com.ferkan.service.IEmployeeService;
+
+@Service
+public class EmployeeServiceImpl implements IEmployeeService {
+
+	
+	@Autowired
+	private EmployeeRepository employeeRepository;
+	
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	private AuthenticationProvider authenticationProvider;
+	
+	@Override
+	public DtoEmployee findEmployeeById(Long id) {
+		DtoEmployee dtoEmployee = new DtoEmployee();
+		DtoDepartment dtoDepartment = new DtoDepartment();
+		Optional<Employee> optional = employeeRepository.findById(id);
+		
+		if (optional.isEmpty()) {
+			return null;
+		}
+		
+		Employee employee = optional.get();
+		Department department = employee.getDepartment();
+		
+		BeanUtils.copyProperties(employee, dtoEmployee);
+		BeanUtils.copyProperties(department, dtoDepartment);
+		
+		dtoEmployee.setDepartment(dtoDepartment);
+		
+		return null;
+	}
+
+
+	@Override
+	public AuthResponse authenticate(AuthRequest request) {
+		bCryptPasswordEncoder
+		return null;
+	}
+
+
+}

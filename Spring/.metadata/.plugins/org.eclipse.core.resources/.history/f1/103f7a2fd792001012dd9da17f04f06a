@@ -1,0 +1,20 @@
+package com.ferkan.controller.impl;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ferkan.controller.IEmployeeController;
+import com.ferkan.dto.DtoEmployee;
+
+@RestController
+@RequestMapping(path = "rest/api/employee")
+public class EmployeeControllerImpl implements IEmployeeController{
+
+	@Override
+	public DtoEmployee findEmployeeById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+}

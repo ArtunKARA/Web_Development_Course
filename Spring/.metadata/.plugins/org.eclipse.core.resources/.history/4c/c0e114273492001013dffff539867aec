@@ -1,0 +1,45 @@
+package com.ferkan.services.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ferkan.dto.DtoDepartment;
+import com.ferkan.dto.DtoEmployee;
+import com.ferkan.entites.Department;
+import com.ferkan.entites.Employee;
+import com.ferkan.repostory.EmployeeRepostory;
+import com.ferkan.services.IEmployeeService;
+
+@Service
+public class EmployeServiceImpl implements IEmployeeService {
+
+	@Autowired
+	private EmployeeRepostory employeeRepostory;
+
+	@Override
+	public List<DtoEmployee> findAllEmployee() {
+		List<Employee> employees = employeeRepostory.findAll();
+		List<DtoEmployee> dtoEmployees = new ArrayList<>();
+
+		if (employees != null && !employees.isEmpty()) {
+			for (Employee employee : employees) {
+				DtoEmployee dtoEmployee = new DtoEmployee();
+				BeanUtils.copyProperties(employee, dtoEmployee);
+				
+				Department dep = employee.getDepartment();
+				System.out.println("depClass=" + (dep==null ? "null" : dep.getClass().getName()));
+				System.out.println("depId=" + (dep==null ? "null" : dep.getId())); // derleniyorsa
+				
+				dtoEmployee.setDepartment(new DtoDepartment(employee.getDepartment().get));
+				dtoEmployees.add(dtoEmployee);
+
+			}
+		}
+
+		return dtoEmployees;
+	}
+}

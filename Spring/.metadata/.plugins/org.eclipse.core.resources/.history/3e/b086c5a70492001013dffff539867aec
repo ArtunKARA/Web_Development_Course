@@ -1,0 +1,43 @@
+package com.ferkan.services.impl;
+
+import java.beans.beancontext.BeanContext;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ferkan.dto.DtoHome;
+import com.ferkan.dto.DtoRoom;
+import com.ferkan.entites.Home;
+import com.ferkan.entites.Room;
+import com.ferkan.repostory.HomeRepostory;
+import com.ferkan.services.IHomeService;
+
+@Service
+public class HomeServiceImpl implements IHomeService {
+
+	@Autowired
+	private HomeRepostory homeRepostory;
+
+	@Override
+	public DtoHome findHomeById(Long id) {
+		Optional<Home> optional = homeRepostory.findById(id);
+		DtoHome dtoHome = new DtoHome();
+		DtoRoom dtoRoom = new DtoRoom();
+		
+		if (optional.isEmpty()) {
+			return null;
+		}
+		Home home = optional.get();
+		List<Room> rooms = optional.get().getRoom();
+		
+		BeanUtils.copyProperties(home, dtoHome);
+		if (rooms == null && rooms.isEmpty()) {
+			
+		}
+		return null;
+	}
+	
+}

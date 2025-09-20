@@ -1,0 +1,29 @@
+package com.ferkan.services.impl;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ferkan.dto.DtoHome;
+import com.ferkan.entites.Home;
+import com.ferkan.repostory.HomeRepostory;
+import com.ferkan.services.IHomeService;
+
+@Service
+public class HomeServiceImpl implements IHomeService {
+
+	@Autowired
+	private HomeRepostory homeRepostory;
+
+	@Override
+	public DtoHome findHomeById(Long id) {
+		Optional<Home> optional = homeRepostory.findById(id);
+		if (optional.isEmpty()) {
+			return null;
+		}
+		
+		return null;
+	}
+	
+}

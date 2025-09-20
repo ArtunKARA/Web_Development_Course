@@ -1,0 +1,5 @@
+package com.ferkan.services.impl;
+
+public class AddressServiceImpl {
+
+}

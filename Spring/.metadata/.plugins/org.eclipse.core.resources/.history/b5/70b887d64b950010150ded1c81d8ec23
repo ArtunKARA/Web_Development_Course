@@ -1,0 +1,24 @@
+package com.ferkan.service.impl;
+
+import org.springframework.stereotype.Service;
+
+import com.ferkan.dto.DtoUser;
+import com.ferkan.jwt.AuthRequest;
+import com.ferkan.model.User;
+import com.ferkan.service.IAuthService;
+
+@Service
+public class AuthServiceImpl implements IAuthService {
+
+	@Override
+	public DtoUser register(AuthRequest request) {
+		DtoUser dtoUser = new DtoUser();
+		User user = new User();
+		
+		user.setUsername(request.getUsername());
+		user.setPassword(request.getUsername());
+		
+		return null;
+	}
+
+}

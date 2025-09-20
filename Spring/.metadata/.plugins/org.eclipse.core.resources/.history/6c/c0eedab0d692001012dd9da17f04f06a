@@ -1,0 +1,7 @@
+package com.ferkan.controller.impl;
+
+import com.ferkan.controller.IEmployeeController;
+
+public class EmployeeControllerImpl implements IEmployeeController{
+
+}

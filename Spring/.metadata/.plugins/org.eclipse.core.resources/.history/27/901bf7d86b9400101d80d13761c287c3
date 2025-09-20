@@ -1,0 +1,15 @@
+package com.ferkan.exception_management;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.ferkan.starter.ExceptionManagementStarter;
+
+@SpringBootTest(classes = {ExceptionManagementStarter.class})
+class ExceptionManagementApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}

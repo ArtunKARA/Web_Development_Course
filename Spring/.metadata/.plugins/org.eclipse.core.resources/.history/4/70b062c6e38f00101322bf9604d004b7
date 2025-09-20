@@ -1,0 +1,13 @@
+package com.ferkan.services.impl;
+
+import org.springframework.stereotype.Service;
+
+
+import com.ferkan.services.IAddressService;
+
+@Service
+public class AddressServiceImpl implements IAddressService {
+	
+
+
+}

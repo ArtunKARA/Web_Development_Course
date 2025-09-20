@@ -1,0 +1,79 @@
+package com.ferkan.config;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.ferkan.jwt.JwtAuthhenticationFilter;
+
+
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+	public static final String AUTHENTICATE = "/authenticate";
+	public static final String REGISTER = "/register";
+	public static final String REFRESH_TOKEN = "/refreshToken";
+	
+	@Autowired
+	private UserDetailsService userDetailsService;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private JwtAuthhenticationFilter jwtAuthenticationFilter;
+	
+	
+//	@Bean
+//	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//		http.csrf().disable()
+//		.authorizeHttpRequests(request-> 
+//		 request.requestMatchers(AUTHENTICATE , REGISTER , REFRESH_TOKEN)
+//		.permitAll()
+//		.anyRequest()
+//		.authenticated())
+//		.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//		.authenticationProvider(authenticationProvider)
+//		.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+//		return http.build();
+//	}
+	
+	@Bean
+	public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
+	    AuthenticationManagerBuilder authManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
+	    authManagerBuilder.userDetailsService(userDetailsService)
+	            .passwordEncoder(passwordEncoder);
+
+	    return authManagerBuilder.build();
+	}
+	
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	    http
+	        .csrf(AbstractHttpConfigurer::disable)
+	        .authorizeHttpRequests(auth -> auth
+	            .requestMatchers("/register", "/authenticate", "/api/categories").permitAll()
+	            .requestMatchers("/employee/**", "/api/category/**").hasRole("ADMIN")
+	            .requestMatchers("/api/profile/**","/employee/**").authenticated()
+	        )
+	        .sessionManagement(session -> session
+	            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+	        )
+	        .authenticationManager(authenticationManager(http))
+	        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+	    return http.build();
+	}
+}

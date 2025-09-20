@@ -1,0 +1,21 @@
+package com.ferkan.exception_management;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.ferkan.service.IEmployeeService;
+import com.ferkan.starter.ExceptionManagementStarter;
+
+@SpringBootTest(classes = {ExceptionManagementStarter.class})
+class ExceptionManagementApplicationTests {
+
+	@Autowired
+	private IEmployeeService employeeService;
+	
+	@Test
+	public void testFindEmployeeById() {
+		
+	}
+
+}

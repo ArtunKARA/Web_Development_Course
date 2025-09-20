@@ -1,0 +1,38 @@
+package com.ferkan.config;
+
+import java.util.Optional;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.ferkan.model.User;
+import com.ferkan.repository.UserRepostory;
+
+@Configuration
+public class AppConfig {
+
+    private final UserRepostory userRepostory;
+
+    public AppConfig(UserRepostory userRepostory) {
+        this.userRepostory = userRepostory;
+    }
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return (String username) -> {
+            Optional<User> optional = userRepostory.findByUsername(username);
+            return optional.orElseThrow(
+                () -> new UsernameNotFoundException("Kullanıcı bulunamadı: " + username)
+            );
+        };
+    }
+}

@@ -1,0 +1,9 @@
+package com.ferkan.controller;
+
+import com.ferkan.dto.DtoAddress;
+
+public interface IAddressControler {
+
+	public DtoAddress findAddresById(Long id);
+	
+}

@@ -1,0 +1,10 @@
+package com.ferkan.dto;
+
+public class DtoDepartment {
+	
+	private Long id;
+	
+	private String name;
+	
+	private String location;
+}

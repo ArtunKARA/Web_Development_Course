@@ -1,0 +1,9 @@
+package com.ferkan.repostory;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.ferkan.dto.DtoAddress;
+
+public interface AddressRepostory extends JpaRepository<DtoAddress, Id> {
+
+}

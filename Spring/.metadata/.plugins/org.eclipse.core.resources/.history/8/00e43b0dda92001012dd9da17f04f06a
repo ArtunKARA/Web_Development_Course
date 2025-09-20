@@ -1,0 +1,14 @@
+package com.ferkan.exception;
+
+public enum MessageType {
+	
+	private String code;
+	
+	private String message;  
+
+	MessageType(String code, String message) {
+		// TODO Auto-generated constructor stub
+	}
+
+	NO_RECORD_EXIST("1001","Kayıt bulunamadı");
+}

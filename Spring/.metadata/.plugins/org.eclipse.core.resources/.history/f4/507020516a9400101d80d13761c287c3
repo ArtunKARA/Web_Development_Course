@@ -1,0 +1,14 @@
+package com.ferkan.schuled;
+
+import org.springframework.scheduling.annotation.Scheduled;
+
+public class ScheduledExample {
+
+	// * * * * * * 
+	@Scheduled(cron = "0 35 11 * * * ")
+	public void write1to10() {
+		for(int i = 0; i < 11; i++) {
+			System.out.println(i);
+		}
+	}
+}

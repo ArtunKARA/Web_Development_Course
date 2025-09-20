@@ -1,0 +1,23 @@
+package com.ferkan.services.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ferkan.dto.DtoEmployee;
+import com.ferkan.repostory.EmployeeRepostory;
+import com.ferkan.services.IEmployeeService;
+
+@Service
+public class EmployeServiceImpl implements IEmployeeService {
+
+	@Autowired
+	private EmployeeRepostory employeeRepostory;
+
+	@Override
+	public List<DtoEmployee> findAllEmployee() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}

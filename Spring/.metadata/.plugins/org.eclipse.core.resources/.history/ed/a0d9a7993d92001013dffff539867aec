@@ -1,0 +1,5 @@
+package com.ferkan.controller;
+
+public interface PropertySourceControll {
+
+}

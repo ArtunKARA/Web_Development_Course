@@ -1,0 +1,34 @@
+package com.ferkan.service.impl;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ferkan.dto.DtoUser;
+import com.ferkan.jwt.AuthRequest;
+import com.ferkan.model.User;
+import com.ferkan.repository.UserRepostory;
+import com.ferkan.service.IAuthService;
+
+@Service
+public class AuthServiceImpl implements IAuthService {
+	
+	@Autowired
+	private UserRepostory userRepostory;
+	
+	
+	@Override
+	public DtoUser register(AuthRequest request) {
+		DtoUser dtoUser = new DtoUser();
+		User user = new User();
+		
+		user.setUsername(request.getUsername());
+		user.setPassword(request.getUsername());
+		
+		User savedUser = userRepostory.save(user);
+		BeanUtils.copyProperties(savedUser, dtoUser);
+		
+		return null;
+	}
+
+}

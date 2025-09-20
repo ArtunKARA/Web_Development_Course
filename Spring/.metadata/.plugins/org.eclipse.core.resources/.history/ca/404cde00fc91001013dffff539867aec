@@ -1,0 +1,11 @@
+package com.ferkan.controller.impl;
+
+import org.springframework.stereotype.Controller;
+
+import com.ferkan.controller.IHomeController;
+
+
+@Controller
+public class HomeControllerImpl implements IHomeController {
+
+}

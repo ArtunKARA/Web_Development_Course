@@ -1,0 +1,28 @@
+package com.ferkan.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+	public static final String AUTHENTICATE = "/authentication";
+	
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http) {
+		
+		http.csrf().disable()
+		.authorizeHttpRequests(request -> 
+		request.requestMatchers("/authentication")
+		.permitAll()
+		.anyRequest()
+		.authenticated()
+		)
+		
+		return null;
+	}
+}

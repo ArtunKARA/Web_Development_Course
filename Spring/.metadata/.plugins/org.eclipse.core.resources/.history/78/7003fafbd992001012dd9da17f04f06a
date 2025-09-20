@@ -1,0 +1,6 @@
+package com.ferkan.exception;
+
+public enum MessageType {
+
+	NO_RECORD_EXIST("1001","Kayıt bulunamadı")
+}

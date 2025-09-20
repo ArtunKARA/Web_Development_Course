@@ -1,0 +1,5 @@
+package com.ferkan.handler;
+
+public class GlobalExceptionHandler {
+
+}

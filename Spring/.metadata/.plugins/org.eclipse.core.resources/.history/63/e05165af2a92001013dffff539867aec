@@ -1,0 +1,10 @@
+package com.ferkan.services;
+
+import java.util.List;
+
+import com.ferkan.dto.DtoEmployee;
+
+public interface IEmployeeService {
+	
+	private List<DtoEmployee> findAllEmployee();
+}

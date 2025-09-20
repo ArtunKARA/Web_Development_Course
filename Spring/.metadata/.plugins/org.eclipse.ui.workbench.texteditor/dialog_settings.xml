@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="hasShownOverlayPopupBefore" value="true"/>
+	<section name="java.lang.Class">
+		<item key="replaceBarOpen" value="false"/>
+		<item key="selection" value="&#x09;@Bean"/>
+		<list key="findhistory">
+			<item value="AuthenticationProvider"/>
+			<item value="userDetailsService"/>
+			<item value="authenticationManager"/>
+			<item value="UserDetailsService"/>
+			<item value="&#x09;@Bean"/>
+			<item value="@Bean"/>
+			<item value="enesbayram"/>
+			<item value="UserDetails"/>
+			<item value="authenticationProvider"/>
+		</list>
+		<list key="replacehistory">
+			<item value="ferkan"/>
+		</list>
+	</section>
+</section>

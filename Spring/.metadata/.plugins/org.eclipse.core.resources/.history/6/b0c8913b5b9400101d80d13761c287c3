@@ -1,0 +1,14 @@
+package com.ferkan.controller.impl;
+
+import com.ferkan.model.RootEntity;
+
+public class RootBaseController {
+
+	public <T> RootEntity<T> ok(T data){
+		return RootEntity.ok(data);
+	}
+	
+	public <T> RootEntity<T> error() {
+		
+	}
+}

@@ -1,0 +1,12 @@
+package com.ferkan.service;
+
+import com.ferkan.dto.DtoEmployee;
+import com.ferkan.jwt.AuthRequest;
+import com.ferkan.jwt.AuthResponse;
+
+public interface IEmployeeService {
+
+	public DtoEmployee findEmployeeById(Long id);
+	
+	public AuthResponse authenticate(AuthRequest request);
+}

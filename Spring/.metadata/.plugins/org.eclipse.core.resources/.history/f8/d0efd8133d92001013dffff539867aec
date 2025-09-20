@@ -1,0 +1,8 @@
+package com.ferkan.configuration;
+
+public class GlobalProperties {
+
+	private String username;
+	
+	private String password
+}

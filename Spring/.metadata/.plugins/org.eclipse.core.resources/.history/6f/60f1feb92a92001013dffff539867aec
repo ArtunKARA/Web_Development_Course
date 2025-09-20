@@ -1,0 +1,12 @@
+package com.ferkan.services.impl;
+
+import org.springframework.stereotype.Service;
+
+import com.ferkan.repostory.EmployeeRepostory;
+import com.ferkan.services.IEmployeeService;
+
+@Service
+public class EmployeServiceImpl implements IEmployeeService {
+
+	private EmployeeRepostory employeeRepostory;
+}

@@ -1,0 +1,15 @@
+package com.ferkan.handler;
+
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import com.ferkan.exception.BaseException;
+
+@ControllerAdvice
+public class GlobalExceptionHandler {
+
+	@ExceptionHandler(value = {BaseException.class})
+	public void handleBaseException() {
+		
+	}
+}

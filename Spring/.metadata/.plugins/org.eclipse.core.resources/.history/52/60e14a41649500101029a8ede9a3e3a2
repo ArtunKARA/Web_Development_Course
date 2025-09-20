@@ -1,0 +1,10 @@
+package com.ferkan.service;
+
+import com.ferkan.dto.DtoUser;
+import com.ferkan.jwt.AuthRequest;
+
+public interface IAuthService {
+
+	public DtoUser register(AuthRequest request);
+	
+}
