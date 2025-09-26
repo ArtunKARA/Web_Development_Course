@@ -38,7 +38,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		
 		dtoEmployee.setDepartment(dtoDepartment);
 		
-		return null;
+		return dtoEmployee;
 	}
 
 

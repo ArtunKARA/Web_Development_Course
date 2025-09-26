@@ -3,17 +3,19 @@ package com.ferkan.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.ferkan.jwt.AuthEntryPoint;
 import com.ferkan.jwt.JwtAuthhenticationFilter;
 
 
@@ -34,6 +36,9 @@ public class SecurityConfig {
 	
 	@Autowired
 	private JwtAuthhenticationFilter jwtAuthenticationFilter;
+	
+	@Autowired
+	private AuthEntryPoint authEntryPoint;
 	
 	
 //	@Bean
@@ -59,21 +64,21 @@ public class SecurityConfig {
 	    return authManagerBuilder.build();
 	}
 	
+	
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 	    http
 	        .csrf(AbstractHttpConfigurer::disable)
+	        .cors(Customizer.withDefaults())
 	        .authorizeHttpRequests(auth -> auth
-	            .requestMatchers("/register", "/authenticate", "/api/categories").permitAll()
-	            .requestMatchers("/employee/**", "/api/category/**").hasRole("ADMIN")
-	            .requestMatchers("/api/profile/**", "/employee/**").authenticated()
-	        )
-	        .sessionManagement(session -> session
-	            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-	        )
+	  	          .requestMatchers("/register", "/authenticate", "/api/categories").permitAll()
+	  	          .requestMatchers(HttpMethod.GET, "/employee/**").authenticated()
+	  	          //.anyRequest().permitAll() // diğerlerini şimdilik aç, sonra sıkılaştır
+	  	      )
 	        .authenticationManager(authenticationManager(http))
-	        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
+	        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+	        .exceptionHandling().authenticationEntryPoint(authEntryPoint);
+	    
 	    return http.build();
 	}
 }

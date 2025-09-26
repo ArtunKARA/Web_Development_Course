@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ferkan.dto.DtoEmployee;
 import com.ferkan.service.IEmployeeService;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-
 @RestController
 @RequestMapping("/employee")
 public class EmployeeControllerImpl implements IEmployeeService {
@@ -21,7 +18,7 @@ public class EmployeeControllerImpl implements IEmployeeService {
 
 	@GetMapping("/list/{id}")
 	@Override
-	public DtoEmployee findEmployeeById(@Valid @NotNull @PathVariable(name = "id", required = true) Long id) {
+	public DtoEmployee findEmployeeById(@PathVariable(name = "id", required = true) Long id) {
 		return employeeService.findEmployeeById(id);
 	}
 
